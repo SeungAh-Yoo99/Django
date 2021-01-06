@@ -5,7 +5,8 @@ from .models import Fcuser  # model 안에 있는 Fcuser 클래스를 가져온�
 
 
 class FcuserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'password')  # 어느 정보를 출력하고 싶은지 명시 할 수 있다.
+    # 어느 정보를 출력하고 싶은지 명시 할 수 있다.
+    list_display = ('username', 'password', 'useremail')
 
 
 admin.site.register(Fcuser, FcuserAdmin)
