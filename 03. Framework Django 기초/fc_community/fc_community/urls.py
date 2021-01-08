@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from fcuser.views import home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # fcuser 아래로 오는 모든 url들은 fcuser.urls 안에 있는 url에서 관리
-    path('fcuser/', include('fcuser.urls'))
+    path('fcuser/', include('fcuser.urls')),
+    path('', home),
 ]
