@@ -16,6 +16,13 @@ def home(request):
     return HttpResponse('Home!')
 
 
+def logout(request):
+    if request.session.get('user'):  # 현재 로그인 되어 있는 상태인지(세션에 정보가 있는지) 확인
+        del(request.session['user'])
+
+    return redirect('/')
+
+
 def login(request):
     if request.method == 'GET':
         return render(request, 'login.html')
