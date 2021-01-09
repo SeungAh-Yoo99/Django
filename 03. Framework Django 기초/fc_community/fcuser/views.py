@@ -25,7 +25,15 @@ def logout(request):
 
 
 def login(request):
-    form = LoginForm()
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():  # 유효성 검사 후 유효하지 않으면 form에 에러 정보가 저장된다.
+            # session
+            request.session['user'] = form.user_id
+            return redirect('/')
+    else:
+        form = LoginForm()
+
     return render(request, 'login.html', {'form': form})
 
 
