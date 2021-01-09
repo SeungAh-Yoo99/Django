@@ -16,14 +16,14 @@
         <form method="POST" action=".">
             <!-- 꼭 form 안에 적어야 한다. django가 알아서 form에 필요한 형태로 암호환된 정보들을 넣어준다.-->
             {% csrf_token %}
+            <!-- {{ form.as_p}} -->
+            <!-- {{ form.as_table }} -->
+            {% for field in form %}
             <div class="form-group">
-                <label for="username" class="form-label">사용자 이름</label>
-                <input type="text" class="form-control" id="username" placeholder="사용자 이름" name="username">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <input type="{{ field.field.widget.input_type }}" class="form-control" id="{{ field.id_for_label }}" placeholder="{{ field.label }}" name="{{ field.name }}">
             </div>
-            <div class="form-group">
-                <label for="password">비밀번호</label>
-                <input type="password" class="form-control" id="password" placeholder="비밀번호" name="password">
-            </div>
+            {% endfor %}
             <button type="submit" class="btn btn-primary">로그인</button>
         </form>
     </div>
