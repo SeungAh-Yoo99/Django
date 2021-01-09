@@ -10,7 +10,7 @@ class LoginForm(forms.Form):
                                'required': '비밀번호를 입력해주세요.'}, widget=forms.PasswordInput, label="비밀번호")
 
     def clean(self):
-        cleaned_data = super().clean()
+        cleaned_data = super().clean()  # 값이 들어있는지 확인
         username = cleaned_data.get('username')
         password = cleaned_data.get('password')
 
