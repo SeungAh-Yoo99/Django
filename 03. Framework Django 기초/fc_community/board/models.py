@@ -12,6 +12,7 @@ class Board(models.Model):
     # CASCADE : 같이 삭제 하겠다.
     # SET_NULL : null 값으로 채운다.
     # SET_DEFAULT : 기본값 지정.
+    tags = models.ManyToManyField('tag.Tag', verbose_name='태그')
     registered_dttm = models.DateTimeField(
         auto_now_add=True, verbose_name='등록시간')
 
