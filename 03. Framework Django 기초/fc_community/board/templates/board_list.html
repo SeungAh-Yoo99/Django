@@ -25,6 +25,37 @@
         </table>
     </div>
 </div>
+<div class="row mt-2">
+    <div class="col-12">
+        <nav>
+            <ul class="pagination justify-content-center"> <!-- bootstrap의 가운데 정렬 -->
+                {% if boards.has_previous %} <!-- 만약에 boards가 이전 페이지가 있으면 실행 -->
+                <li class="page-item">
+                    <a href="?p={{ boards.previous_page_number }}" class="page-link">이전으로</a>
+                </li>
+                {% else %} <!-- 없으면 -->
+                <li class="page-item disabled">
+                    <a href="#" class="page-link">이전으로</a>
+                </li>
+                {% endif %}
+
+                <li class="page-item active">
+                    <a href="#" class="page-link">{{ boards.number }} / {{ boards.paginator.num_pages }}</a>
+                </li>
+
+                {% if boards.has_next %}
+                <li class="page-item">
+                    <a href="?p={{ boards.next_page_number }}" class="page-link">다음으로</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a href="#" class="page-link">다음으로</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>
 <div class="row">
     <div class="col-12">
         <button class="btn btn-primary">글쓰기</button>

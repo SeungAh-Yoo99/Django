@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
 from django.http import Http404  # 내용을 찾을 수 없을 때, 대신 내보낼 수 있는 페이지
 from fcuser.models import Fcuser
 from .models import Board
@@ -39,5 +40,10 @@ def board_write(request):
 
 def board_list(request):
     # '-'는 역순으로 가져온다는 뜻.(여기서는 최신순으로 가져온다는 뜻.)
-    boards = Board.objects.all().order_by('-id')
+    all_boards = Board.objects.all().order_by('-id')
+    page = int(request.GET.get('p', 1))  # p번째 페이지, 지정이 안되어 있으면 1 페이지
+    paginator = Paginator(all_boards, 2)  # 한 페이지 당 2개 씩 보여주는 것으로 설정
+
+    boards = paginator.get_page(page)
+
     return render(request, 'board_list.html', {'boards': boards})
