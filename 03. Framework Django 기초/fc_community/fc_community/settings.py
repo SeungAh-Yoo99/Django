@@ -23,9 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'z2wcw@+o-0ky&=*35w1)gb8bj7ha7f=rlknw=k+5i=1boeb&4a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False  # True로 했을 시, 오류가 났을 때 화면에 개발자들에게 유용한 정보들을 보여준다.
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'ysa8497.pythonanywhere.com'
+]
 
 
 # Application definition
@@ -121,6 +123,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
+# static file(css와 같은 파일)들을 수집을 한 후 프로젝트의 한 디렉토리 안에 자동으로 모아준다.
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
