@@ -59,7 +59,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
-        'APP_DIRS': True,
+        'APP_DIRS': True,  # template을 찾을 때 모든 폴더의 templates 폴더를 찾아본다는 의미
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',

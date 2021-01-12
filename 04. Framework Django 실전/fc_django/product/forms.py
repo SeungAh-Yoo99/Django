@@ -14,7 +14,6 @@ class RegisterForm(forms.Form):
     )
     description = forms.CharField(
         error_messages={'required': '상품설명을 입력해주세요.'},
-        max_length=64,
         label='상품설명'
     )
     stock = forms.IntegerField(
