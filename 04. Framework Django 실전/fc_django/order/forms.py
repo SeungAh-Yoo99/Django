@@ -1,4 +1,5 @@
 from django import forms
+from django.db import transaction
 from .models import Order
 from product.models import Product
 from fcuser.models import Fcuser
@@ -28,12 +29,16 @@ class RegisterForm(forms.Form):
         fcuser = self.request.session.get('user')
 
         if quantity and product and fcuser:
-            order = Order(
-                quantity=quantity,
-                product=Product.objects.get(pk=product),
-                fcuser=Fcuser.objects.get(email=fcuser)
-            )
-            order.save()
+            with transaction.atomic():  # with 안에서 일어나는 모든 db 관련  동작들은 transaction으로 처리된다.
+                prod = Product.objects.get(pk=product)
+                order = Order(
+                    quantity=quantity,
+                    product=prod,
+                    fcuser=Fcuser.objects.get(email=fcuser)
+                )
+                order.save()
+                prod.stock -= quantity
+                prod.save()
         else:
             self.product = product
             self.add_error('quantity', '값이 없습니다.')
