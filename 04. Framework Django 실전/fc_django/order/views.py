@@ -9,7 +9,7 @@ class OrderCreate(FormView):
     form_class = RegisterForm
     success_url = '/product/'
 
-    def form_invalid(self, form):
+    def form_invalid(self, form):  # 실패했을 경우에 처리 방법
         return redirect('/product/' + str(form.product))
 
     def get_form_kwargs(self, **kwargs):

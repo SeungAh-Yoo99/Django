@@ -19,7 +19,7 @@
                             <input type="{{ field.field.widget.input_type }}" 
                             class="form-control" id="{{ field.id_for_label }}" 
                             placeholder="{{ field.label }}" name="{{ field.name }}"
-                            value="{% ifequal field.name 'prduct' %}{{ product.id }}{% endifequal %}">
+                            value="{% ifequal field.name 'product' %}{{product.id}}{% endifequal %}">
                         </div>
                         {% if field.errors %}
                         <span style="color: red">{{ field.errors }}</span>
