@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
+from django.views.generic import DetailView
 from django.views.generic.edit import FormView
+from django.contrib.auth.hashers import make_password
 from .forms import RegisterForm, LoginForm
+from .models import Fcuser
 # Create your views here.
 
 
@@ -13,6 +16,16 @@ class RegisterView(FormView):
     form_class = RegisterForm
     success_url = '/'  # 정상적으로 모든 정보가 입력 됐을 때 이동할 주소
 
+    def form_valid(self, form):
+        fcuser = Fcuser(
+            email=form.data.get('email'),
+            password=make_password(form.data.get('password')),
+            level='user'
+        )
+        fcuser.save()
+
+        return super().form_valid(form)
+
 
 class LoginView(FormView):
     template_name = 'login.html'
@@ -20,7 +33,7 @@ class LoginView(FormView):
     success_url = '/'
 
     def form_valid(self, form):
-        self.request.session['user'] = form.email
+        self.request.session['user'] = form.data.get('email')
 
         return super().form_valid(form)
 
