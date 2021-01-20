@@ -1,6 +1,7 @@
 # Section02-3
 # 파이썬 크롤링 기초
 # lxml 사용 기초 스크랩핑(1)
+# pip install lxml, requests, cssselect
 
 import requests
 import lxml.html
@@ -28,8 +29,11 @@ def scrape_news_list_page(response):
     # 태그 정보 문자열 저장
     root = lxml.html.fromstring(response.content)
 
-    for a in root.cssselect(''):
+    for a in root.cssselect('.thumb_area .thumb_box .popup_wrap a[href^="http"]'): # .thumb_area .thumb_box > div > a:nth-child(3)
         # 링크
+        url = a.get('href')
+        urls.append(url)
+    return urls
 
 # 스크랩핑 시작
 if __name__ == "__main__":
