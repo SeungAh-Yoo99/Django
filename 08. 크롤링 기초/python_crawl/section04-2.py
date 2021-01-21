@@ -11,7 +11,7 @@ s = requests.Session()
 r = s.get('https://httpbin.org/stream/100', stream=True) # stream 옵션은 데이터를 직렬화해서 가져온다.
 
 # 수신 확인
-print(r.text)
+# print(r.text)
 
 # Encoding 확인
 print('Before Encoding : {}'.format(r.encoding))
@@ -20,3 +20,47 @@ if r.encoding is None:
     r.encoding = 'UTF-8'
 
 print('After Encoding : {}'.format(r.encoding))
+
+
+for line in r.iter_lines(decode_unicode=True):
+    # 라인 출력 후 타입 확인
+    # print(line)
+    # print(type(line))
+
+    # JSON(Dict) 변환 후 타입 확인
+    b = json.loads(line) # str -> dict
+    # print(b)
+    # print(type(b))
+
+    for k, v in b.items():
+        print("Key : {}, Value : {}".format(k, v))
+
+    print()
+    print()
+
+s.close()
+
+
+r = s.get('https://jsonplaceholder.typicode.com/todos/1')
+
+# Header 정보
+print(r.headers)
+
+# 본문 정보
+print(r.text)
+
+# json 변환
+print(r.json()) # 단일 레코일 경우 사용할 수 있는 메소드
+
+# key 반환
+print(r.json().keys())
+# 값 반환
+print(r.json().values())
+
+# 인코딩 반환
+print(r.encoding)
+
+# 바이너리 정보
+print(r.content)
+
+s.close()
