@@ -15,10 +15,10 @@ chrome_options = Options()
 chrome_options.add_argument("--headless") # 실행 했을 때 브라우저가 실행되지 않는다.
 
 # webdriver 설정(Chrome, Firefox 등) - Headless 모드
-# browser = webdriver.Chrome('D:/webdriver/chrome/chromedriver.exe', options=chrome_options)
+browser = webdriver.Chrome('D:/webdriver/chrome/chromedriver.exe', options=chrome_options)
 
 # webdriver 설정(Chrome, Firefox 등) - 일반 모드
-browser = webdriver.Chrome('D:/webdriver/chrome/chromedriver.exe')
+# browser = webdriver.Chrome('D:/webdriver/chrome/chromedriver.exe')
 
 # 크롬 브라우저 내부 대기
 browser.implicitly_wait(5)
@@ -43,3 +43,27 @@ WebDriverWait(browser, 3).until(EC.presence_of_element_located((By.XPATH, '//*[@
 # browser.find_element_by_xpath('//*[@id="dlMaker_simple"]/dd/div[2]/button[1]').click()
 # 2초간 계속 기다린다.
 
+# 원하는 모델 카테고리 클릭
+WebDriverWait(browser, 2).until(EC.presence_of_element_located((By.XPATH, '//*[@id="selectMaker_simple_priceCompare_A"]/li[13]/label'))).click()
+
+# 2차 페이지 내용
+print('After Page Contents : {}'.format(browser.page_source))
+
+time.sleep(2)
+
+# bs4 초기화
+soup = BeautifulSoup(browser.page_source, 'html.parser')
+
+# 소스코드 정리
+# print(soup.prettify)
+
+# 메인 상품 리스트 선택
+pro_list = soup.select('div.main_prodlist.main_prodlist_list > ul > li.prod_item.prod_layer ')
+
+# 상품 리스트 확인
+# print(pro_list)
+
+# 필요 정보 추출
+for v in pro_list:
+    # 임시 출력
+    print(v)
