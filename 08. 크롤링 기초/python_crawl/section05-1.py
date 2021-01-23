@@ -16,7 +16,7 @@ html = """
         <p class="story">Once upon a time ther were three little sisters.
             <a href="http://example.com/elsie" class="sister" id="link1">Elsie</a>
             <a href="http://example.com/lacie" class="sister" id="link2">Lacie</a>
-            <a data-io="link3" href="http://example.com/little" class="sister" id="link3">title</a>
+            <a data-io="link3" href="http://example.com/little" class="brother" id="link3">title</a>
         </p>
         <p class="story">
             story....
@@ -54,4 +54,29 @@ print('h1 >>', h1.string)
 print('p1 >>', p1.string) # p 태그 안의 b 태그는 무시하고 string만 출력함.
 
 # 다음 엘리먼트 확인
-print(list(p2.next_element)) # p2 안의 텍스트 부분이 출력된다.
+print(list(p2.next_element)) # p2 안의 텍스트 부분이 출력된다.(한글자씩, 여기서는 list 형태로 출력.)
+
+# 반복 출력 확인
+for v in p2.next_element:
+    print(v)
+
+
+# 예제2(Find, Find_all)
+# bs4 초기화
+
+soup2 = BeautifulSoup(html, 'html.parser')
+
+# a 태그 모두 선택
+link1 = soup.find_all('a') # limit=n 옵션(앞에서부터 n개 까지만 가져옴.)
+# 타입 확인
+print(type(link1))
+
+# 리스트 요소 확인
+print('links', link1)
+
+# 중요 
+link2 = soup.find_all("a", class_='sister') # id="link2", string="title", string=["Elsie", "title"]
+print(link2)
+
+for t in link2:
+    print(t)
