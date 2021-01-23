@@ -47,7 +47,7 @@ WebDriverWait(browser, 3).until(EC.presence_of_element_located((By.XPATH, '//*[@
 WebDriverWait(browser, 2).until(EC.presence_of_element_located((By.XPATH, '//*[@id="selectMaker_simple_priceCompare_A"]/li[13]/label'))).click()
 
 # 2차 페이지 내용
-print('After Page Contents : {}'.format(browser.page_source))
+# print('After Page Contents : {}'.format(browser.page_source))
 
 time.sleep(2)
 
@@ -66,4 +66,16 @@ pro_list = soup.select('div.main_prodlist.main_prodlist_list > ul > li.prod_item
 # 필요 정보 추출
 for v in pro_list:
     # 임시 출력
-    print(v)
+    #print(v)
+
+    # 상품명, 이미지, 가격
+    s = v.select('div.prod_main_info > div.prod_info > p > a[name="productName"]')
+    if s:
+        print(s[0].text.strip())
+        print(v.select('div.prod_main_info > div.thumb_image > a.thumb_link > img')[0]['src']) # 이미지 불러오는 것은 막힌 것 같다.
+        print(v.select('div.prod_main_info > div.prod_pricelist > ul > li > p.price_sect > a > strong')[0].text.strip())
+
+    print()
+
+# 브라우저 종료
+browser.close()
