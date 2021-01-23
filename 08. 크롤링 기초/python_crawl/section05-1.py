@@ -18,9 +18,7 @@ html = """
             <a href="http://example.com/lacie" class="sister" id="link2">Lacie</a>
             <a data-io="link3" href="http://example.com/little" class="brother" id="link3">title</a>
         </p>
-        <p class="story">
-            story....
-        </p>
+        <p class="story">story....</p>
     </body>
 </html>
 """
@@ -84,7 +82,7 @@ for t in link2:
 # 처음 발견한 a 태그 선택
 link3 = soup.find("a")
 print(link3)
-print(link3.string)
+print(link3.string) # text 보다는 주로 string을 사용
 print(link3.text)
 
 # 다중 조건
@@ -104,7 +102,37 @@ print(link5)
 print(link5.string)
 print(link5.text)
 
-link6 = soup.select_one("a#link1")
+link6 = soup.select_one("a#link1") # .:클래스, #:id
 print(link6)
 print(link6.string)
 print(link6.text)
+
+link7 = soup.select_one("a[data-io='link3']")
+print(link7)
+print(link7.string)
+print(link7.text)
+
+link8 = soup.select('p.story > a')
+print(link8)
+for t in link8:
+    print(t.string)
+    print(t.text)
+
+link9 = soup.select_one('p.story > a:nth-of-type(2)') # sekect로 할 경우 string과 text는 출력되지 않는다.
+print(link9)
+print(link9.string)
+print(link9.text)
+
+link10 = soup.select("p.story")
+print(link10)
+
+for t in link10:
+    temp = t.find_all("a")
+
+    if temp:
+        for v in temp:
+            print('>>>>>', v)
+            print('>>>>>', v.string)
+    else:
+        print('-----', t)
+        print('-----', t.string)
