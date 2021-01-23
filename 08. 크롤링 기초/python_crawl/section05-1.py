@@ -80,3 +80,31 @@ print(link2)
 
 for t in link2:
     print(t)
+
+# 처음 발견한 a 태그 선택
+link3 = soup.find("a")
+print(link3)
+print(link3.string)
+print(link3.text)
+
+# 다중 조건
+link4 = soup.find("a", {"class": "brother", "data-io": "link3"})
+print(link4)
+print(link4.string)
+print(link4.text)
+
+
+# css 선택자 : select, select_one
+# 태그로 접근 : find, find_all
+# 예제3(select, select_one)
+# 태그 + 클래스 + 자식선택자
+
+link5 = soup.select_one('p.title > b')
+print(link5)
+print(link5.string)
+print(link5.text)
+
+link6 = soup.select_one("a#link1")
+print(link6)
+print(link6.string)
+print(link6.text)
