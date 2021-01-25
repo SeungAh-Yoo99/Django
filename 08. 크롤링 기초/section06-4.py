@@ -70,7 +70,7 @@ cur_page = 1
 target_crawl_num = 5
 
 # 엑셀 행 수
-int_cnt = 1
+ins_cnt = 1
 
 while cur_page <= target_crawl_num:
 
@@ -105,6 +105,15 @@ while cur_page <= target_crawl_num:
             # img_data = BytesIO(req.urlopen('http:' + v.select('div.prod_main_info > div.thumb_image > a.thumb_link > img')[0]['src']).read())
             # 이미지 불러오는 것은 일부 막힌 것 같다.
 
+            # 엑셀 저장(텍스트)
+            worksheet.write('A%s'% ins_cnt, prod_name)
+            worksheet.write('B%s'% ins_cnt, prod_price)
+
+            # 엑셀 저장(이미지)
+            # worksheet.write('C%s'% ins_cnt, prod_name, {'image_data': img_data})
+
+            ins_cnt += 1
+
         print()
     print()
 
@@ -132,3 +141,6 @@ while cur_page <= target_crawl_num:
 
 # 브라우저 종료
 browser.close()
+
+# 엑셀 파일 닫기
+workbook.close()
