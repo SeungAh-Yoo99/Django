@@ -85,7 +85,7 @@ while cur_page <= target_crawl_num:
         s = v.select('div.prod_main_info > div.prod_info > p > a[name="productName"]')
         if s:
             print(s[0].text.strip())
-            print(v.select('div.prod_main_info > div.thumb_image > a.thumb_link > img')[0]['src']) # 이미지 불러오는 것은 막힌 것 같다.
+            print(v.select('div.prod_main_info > div.thumb_image > a.thumb_link > img')[0]['src']) # 이미지 불러오는 것은 일부 막힌 것 같다.
             print(v.select('div.prod_main_info > div.prod_pricelist > ul > li > p.price_sect > a > strong')[0].text.strip())
 
             # 이 부분에서 엑셀 저장(파일, DB 등)
