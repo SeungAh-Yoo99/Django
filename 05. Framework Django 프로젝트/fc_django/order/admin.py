@@ -21,4 +21,9 @@ class OrderAdmin(admin.ModelAdmin):
         extra_context = { 'title': '주문 목록'}
         return super().changelist_view(request, extra_context)
 
+    def changeform_view(self, request, object_id=None, form_url='', extra_context=None):
+        order = Order.objects.get(pk=object_id)
+        extra_context = { 'title': "{}의 주문 '{}' 수정".format(order.fcuser.email, order.product.name)}
+        return super().changeform_view(request, object_id, form_url, extra_context)
+
 admin.site.register(Order, OrderAdmin)
