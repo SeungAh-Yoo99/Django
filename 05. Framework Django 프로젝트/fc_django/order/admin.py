@@ -17,4 +17,8 @@ class OrderAdmin(admin.ModelAdmin):
 
     styled_status.short_description = '상태' # admin 페이지에서 style_status 대신 상태라고 표시된다.
 
+    def changelist_view(self, request, extra_context=None):
+        extra_context = { 'title': '주문 목록'}
+        return super().changelist_view(request, extra_context)
+
 admin.site.register(Order, OrderAdmin)
