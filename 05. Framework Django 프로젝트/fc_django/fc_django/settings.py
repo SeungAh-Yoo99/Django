@@ -8,9 +8,14 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
+
 superuser
 id = root
 pw = root
+
+user
+id = fcadmin
+pw = fcadmin123456789
 """
 
 from pathlib import Path
