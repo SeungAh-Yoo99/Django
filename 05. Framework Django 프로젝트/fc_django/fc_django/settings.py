@@ -35,10 +35,20 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+BATON = {
+    'SITE_HEADER': '패스트캠퍼스', # 아무 앱의 admin.py에 'admin.site.site_header = '로 바꿀 수도 있다.
+    'SITE_TITLE': '패스트캠퍼스 백오피스',
+    'INDEX_TITLE': '패스트캠퍼스 관리자페이지', # 'admin.site.index_title = '
+    'SUPPORT_HREF': 'https://fastcampus.co.kr', # 'SUPPORT_HREF': 'mailto:test@test.com' -> 메일로 이동
+    'COPYRIGHT': 'copyright © 2021 Fastcampus',
+    'POWERED_BY': '<a href="https://fastcampus.co.kr">Fastcampus</a>',
+    'MENU_TITLE': '패스트캠퍼스'
+}
 
 # Application definition
 
 INSTALLED_APPS = [
+    'baton',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,6 +60,8 @@ INSTALLED_APPS = [
     'fcuser',
     'order',
     'product',
+
+    'baton.autodiscover' # 가장 밑에 와야한다.
 ]
 
 MIDDLEWARE = [
