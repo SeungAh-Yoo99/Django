@@ -29,11 +29,16 @@ refund.short_description = '환불'
 
 class OrderAdmin(admin.ModelAdmin):
     list_filter = ('status',)
-    list_display = ('fcuser', 'product', 'quantity', 'styled_status')
+    list_display = ('fcuser', 'product', 'quantity', 'styled_status', 'action')
+    change_list_template = 'admin/order_change_list.html'
 
     actions = [
         refund
     ]
+
+    def action(self, obj):
+        if obj.status != '환불':
+            return format_html('<input type="button" value="환불" onclick="order_refund_submit({})" class="btn btn-primary btm-sm">'.format(obj.id))
     
     def styled_status(self, obj):
         if obj.status == '환불':
@@ -46,6 +51,10 @@ class OrderAdmin(admin.ModelAdmin):
 
     def changelist_view(self, request, extra_context=None):
         extra_context = { 'title': '주문 목록'}
+
+        if request.method == 'POST':
+            pass
+
         return super().changelist_view(request, extra_context)
 
     def changeform_view(self, request, object_id=None, form_url='', extra_context=None):
