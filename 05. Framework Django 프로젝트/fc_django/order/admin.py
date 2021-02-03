@@ -1,12 +1,24 @@
+from django.db.models import F
 from django.contrib import admin
 from django.utils.html import format_html
 from .models import Order
 # Register your models here.
 
+def refund(modeladmin, request, queryset): # queryset에는 체크로 선택한 주문들이 넘어온다.
+    queryset.update(status='환불')
+    for obj in queryset:
+        obj.product.stock += obj.quantity
+        obj.product.save()
+
+refund.short_description = '환불'
 
 class OrderAdmin(admin.ModelAdmin):
     list_filter = ('status',)
-    list_display = ('fcuser', 'product', 'styled_status')
+    list_display = ('fcuser', 'product', 'quantity', 'styled_status')
+
+    actions = [
+        refund
+    ]
     
     def styled_status(self, obj):
         if obj.status == '환불':
