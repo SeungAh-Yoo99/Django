@@ -53,7 +53,23 @@ class OrderAdmin(admin.ModelAdmin):
         extra_context = { 'title': '주문 목록'}
 
         if request.method == 'POST':
-            pass
+            obj_id = request.POST.get('obj_id')
+            if obj_id:
+                qs = Order.objects.filter(pk=obj_id)
+                ct = ContentType.objects.get_for_model(qs.model)
+                for obj in qs:
+                    obj.product.stock += obj.quantity
+                    obj.product.save()
+
+                    LogEntry.objects.log_action(
+                        user_id=request.user.id,
+                        content_type_id=ct.pk,
+                        object_id=obj.pk,
+                        object_repr='{}의 {} 주문 환불'.format(obj.fcuser, obj.product),
+                        action_flag=CHANGE,
+                        change_message='주문 환불'
+                    )
+                qs.update(status='환불')
 
         return super().changelist_view(request, extra_context)
 
